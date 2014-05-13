@@ -39,6 +39,10 @@ void receiveStatus(const Socket& s) {
 		<< "\tY:" << static_cast<unsigned int>(data[5]) << "->" << static_cast<unsigned int>(player_y) << std::endl;
 	}
 
+	for (int i = 0; i < nPlayers-1; ++i) {
+		SDL_RenderDrawPoint(renderer, data[10+2*i], data[11+2*i]);
+  		SDL_RenderPresent(renderer);
+	}
 }
 
 int main()
@@ -79,7 +83,7 @@ int main()
 				inputQueue.insert(std::pair<uint32_t, uint8_t>(frame, data[4]));
 				Tools::runInput(&player_x, &player_y, data[4]);
 			}
-			SDL_RenderDrawPoint(renderer, player_x, player_y); //Renders on middle of screen.
+			SDL_RenderDrawPoint(renderer, player_x, player_y);
   			SDL_RenderPresent(renderer);
 			frame++;
 			deltaTime = 0;
